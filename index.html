@@ -157,9 +157,11 @@
         .form-page {
             display: none; /* Hide all pages by default */
         }
-        .form-page.active {
-            display: block; /* Show active page */
+        /* Only show active page in interactive mode */
+        body:not(.print-active) .form-page.active {
+            display: block;
         }
+
         .navigation-buttons {
             display: flex;
             justify-content: space-between;
@@ -168,6 +170,42 @@
         }
         .navigation-buttons button {
             transition: all 0.2s ease-in-out;
+        }
+
+        /* Print specific styles */
+        @media print {
+            .form-page {
+                display: block !important; /* Show all pages when printing */
+                page-break-after: always; /* Force page break after each category for better readability in print */
+            }
+            .navigation-buttons, .instructions li:last-child { /* Hide navigation and print instruction on print */
+                display: none !important;
+            }
+            body {
+                background: none; /* Remove background gradient for print */
+                padding: 0;
+            }
+            .container-wrapper {
+                box-shadow: none;
+                border: none;
+                padding: 1rem; /* Adjust padding for print */
+                max-width: none;
+                width: 100%;
+                margin: 0;
+            }
+            header, section {
+                margin-bottom: 1rem !important; /* Reduce margin for print */
+            }
+            .result-section {
+                box-shadow: none;
+                border: none;
+                background: none;
+            }
+            /* Ensure proper spacing for questions in print */
+            .form-page .space-y-6 > div, .form-page .space-y-7 > div {
+                margin-bottom: 0.5rem !important; /* Adjust spacing between questions */
+                page-break-inside: avoid; /* Prevent breaking questions across pages */
+            }
         }
     </style>
 </head>
@@ -198,6 +236,7 @@
                 <li class="ml-4 md:ml-5"><strong>5:</strong> Consistently evident / Fully mature in this area.</li>
                 <li>The form will automatically calculate your total score and a percentage representing your progress.</li>
                 <li><span class="font-bold text-red-600">Note:</span> This is a web application. To save a copy with your results, use your browser's "Print" function (Ctrl+P or Cmd+P) and select "Save as PDF".</li>
+                <li class="ml-4 md:ml-5"><strong>To print all questions and your answers, click the "Print Full Report" button below.</strong></li>
             </ul>
         </section>
 
@@ -311,6 +350,10 @@
                 class="px-6 py-3 rounded-xl bg-green-500 text-white font-semibold text-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300 transition-all duration-200 ease-in-out">
                 Next <span id="pageCounter">(1/5)</span>
             </button>
+            <button id="printFullReportBtn"
+                class="px-6 py-3 rounded-xl bg-purple-500 text-white font-semibold text-lg shadow-md hover:bg-purple-600 focus:outline-none focus:ring-4 focus:ring-purple-300 transition-all duration-200 ease-in-out">
+                Print Full Report
+            </button>
         </div>
     </div>
 
@@ -320,6 +363,7 @@
             const pages = form.querySelectorAll('.form-page');
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
+            const printFullReportBtn = document.getElementById('printFullReportBtn');
             const pageCounter = document.getElementById('pageCounter');
             const totalScoreSpan = document.getElementById('totalScore');
             const percentageSpan = document.getElementById('percentage');
@@ -335,6 +379,7 @@
                 input.value = '';
             });
 
+            // Function to display the correct page
             function showPage(index) {
                 pages.forEach((page, i) => {
                     if (i === index) {
@@ -362,6 +407,7 @@
                 updateResults(); // Update results every time page changes
             }
 
+            // Function to calculate and display scores
             function updateResults() {
                 let currentTotalScore = 0;
                 scoreInputs.forEach(input => {
@@ -380,6 +426,32 @@
                 percentageSpan.textContent = percentage.toFixed(2) + '%';
             }
 
+            // Event listener for printing all pages
+            window.addEventListener('beforeprint', () => {
+                // When printing, remove active class from all pages to ensure @media print rule takes over
+                // This is specifically to ensure all pages are block for printing
+                pages.forEach(page => {
+                    page.classList.add('active'); // Temporarily make all visible
+                });
+                document.body.classList.add('print-active'); // Add print-active class to body
+            });
+
+            window.addEventListener('afterprint', () => {
+                // After printing, revert back to normal view
+                document.body.classList.remove('print-active'); // Remove print-active class
+                // Restore only the current active page
+                pages.forEach((page, i) => {
+                    if (i !== currentPageIndex) {
+                        page.classList.remove('active');
+                    }
+                });
+            });
+
+            printFullReportBtn.addEventListener('click', () => {
+                window.print(); // Trigger the print dialog
+            });
+
+            // Navigation button event listeners
             prevBtn.addEventListener('click', () => {
                 if (currentPageIndex > 0) {
                     currentPageIndex--;
