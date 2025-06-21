@@ -1,0 +1,486 @@
+
+<html lang="rw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kwisuzuma ku Gukura mu Mwuka</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for modern look and feel */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(to right top, #e0f2fe, #ccfbf1); /* Soft blues and greens gradient */
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align to top */
+            padding: 1rem; /* Reduced padding for smaller screens */
+        }
+        .container-wrapper {
+            background-color: #ffffff;
+            border-radius: 2rem; /* Even more rounded for a softer look */
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+            padding: 2rem; /* Adjusted padding for all screen sizes */
+            width: 100%;
+            max-width: 850px;
+            margin-top: 1rem; /* Adjusted margin for smaller screens */
+            border: 1px solid #bfdbfe; /* Light blue border */
+            overflow: hidden; /* Ensures shadows/radii are contained */
+        }
+        @media (min-width: 640px) { /* sm breakpoint */
+            body {
+                padding: 1.5rem;
+            }
+            .container-wrapper {
+                padding: 2.5rem;
+                margin-top: 1.5rem;
+            }
+        }
+        @media (min-width: 1024px) { /* lg breakpoint */
+            body {
+                padding: 2rem;
+            }
+            .container-wrapper {
+                padding: 3rem;
+                margin-top: 2rem;
+            }
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+            border-radius: 0.75rem; /* Larger rounded inputs */
+            transition: all 0.3s ease-in-out;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05); /* Subtle inner shadow */
+            width: 5rem; /* Default width for input */
+        }
+        input[type="number"]:focus {
+            border-color: #38bdf8; /* Sky blue focus ring */
+            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.3), inset 0 1px 3px rgba(0,0,0,0.05); /* Softer, wider focus shadow */
+            outline: none; /* Remove default outline */
+        }
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        /* Custom styling for the blockquote (verse) */
+        blockquote {
+            background-color: #f0f9ff; /* Very light blue */
+            border-left-width: 6px;
+            border-color: #22d3ee; /* Cyan-500 for the border */
+            padding-left: 1rem; /* Adjusted padding for smaller screens */
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-radius: 0.75rem; /* Rounded blockquote */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Subtle shadow for blockquote */
+        }
+        @media (min-width: 640px) { /* sm breakpoint */
+            blockquote {
+                padding-left: 1.5rem;
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+            }
+        }
+
+        .category-header {
+            border-bottom: 2px solid #a5f3fc; /* Light cyan border for categories */
+            padding-bottom: 0.75rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Georgia', serif; /* Slightly different font for category titles */
+            color: #0d9488; /* Dark teal for category titles */
+            font-size: 1.5rem; /* Default font size for category header */
+        }
+        @media (min-width: 640px) { /* sm breakpoint */
+            .category-header {
+                font-size: 1.875rem; /* text-3xl */
+            }
+        }
+        @media (min-width: 768px) { /* md breakpoint */
+            .category-header {
+                font-size: 2rem; /* text-4xl */
+            }
+        }
+
+        .question-label {
+            color: #334155; /* Slate-700 for question text */
+            line-height: 1.6; /* Improved readability */
+            font-size: 1rem; /* Default font size for question label */
+        }
+        @media (min-width: 640px) { /* sm breakpoint */
+            .question-label {
+                font-size: 1.125rem; /* text-lg */
+            }
+        }
+
+        .result-section {
+            background-color: #d1fae5; /* Light emerald green */
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid #6ee7b7; /* Softer emerald border */
+            color: #065f46; /* Dark emerald text */
+            padding: 2rem; /* Adjusted padding for result section */
+        }
+        @media (min-width: 640px) { /* sm breakpoint */
+            .result-section {
+                padding: 2.5rem;
+            }
+        }
+        @media (min-width: 768px) { /* md breakpoint */
+            .result-section {
+                padding: 3rem;
+            }
+        }
+
+        .result-section h2 {
+            color: #047857; /* Even darker emerald for result title */
+            font-size: 1.875rem; /* Default font size for result title */
+        }
+        @media (min-width: 640px) { /* sm breakpoint */
+            .result-section h2 {
+                font-size: 2.25rem; /* text-4xl */
+            }
+        }
+
+        .result-section span {
+            color: #10b981; /* Bright emerald for numbers */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05); /* Subtle text shadow */
+            font-size: 2.25rem; /* Default font size for result numbers */
+        }
+        @media (min-width: 640px) { /* sm breakpoint */
+            .result-section span {
+                font-size: 3rem; /* text-5xl */
+            }
+        }
+
+        /* Multi-page styling */
+        .form-page {
+            display: none; /* Hide all pages by default */
+        }
+        /* Only show active page in interactive mode */
+        body:not(.print-active) .form-page.active {
+            display: block;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding: 0 1.5rem;
+        }
+        .navigation-buttons button {
+            transition: all 0.2s ease-in-out;
+        }
+
+        /* Print specific styles */
+        @media print {
+            .form-page {
+                display: block !important; /* Show all pages when printing */
+                page-break-after: always; /* Force page break after each category for better readability in print */
+            }
+            .navigation-buttons, .instructions li:last-child { /* Hide navigation and print instruction on print */
+                display: none !important;
+            }
+            body {
+                background: none; /* Remove background gradient for print */
+                padding: 0;
+            }
+            .container-wrapper {
+                box-shadow: none;
+                border: none;
+                padding: 1rem; /* Adjust padding for print */
+                max-width: none;
+                width: 100%;
+                margin: 0;
+            }
+            header, section {
+                margin-bottom: 1rem !important; /* Reduce margin for print */
+            }
+            .result-section {
+                box-shadow: none;
+                border: none;
+                background: none;
+            }
+            /* Ensure proper spacing for questions in print */
+            .form-page .space-y-6 > div, .form-page .space-y-7 > div {
+                margin-bottom: 0.5rem !important; /* Adjust spacing between questions */
+                page-break-inside: avoid; /* Prevent breaking questions across pages */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-wrapper">
+        <header class="text-center mb-8 md:mb-10">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-cyan-800 leading-tight mb-2 md:mb-4">
+                Kwisuzuma ku Gukura mu Mwuka
+            </h1>
+            <p class="text-xl md:text-2xl text-cyan-600 font-semibold mb-4 md:mb-6">
+                Inzira yo kugera ku buzima bwuzuye bwa Kristo
+            </p>
+            <blockquote class="text-base md:text-lg text-gray-700 italic mx-auto max-w-xl md:max-w-2xl">
+                “Kugeza ubwo twese tuzagera ku bumwe mu kwemera no kumenya Umwana w’Imana, tukaba abantu bakuze bageze ku gipimo cy’ubuzure bwa Kristo.”
+                <footer class="mt-2 text-sm md:text-base font-bold text-gray-600">– Abefeso 4:13 (Bibiliya Yera 2023)</footer>
+            </blockquote>
+        </header>
+
+        <section class="mb-8 md:mb-10 p-6 md:p-8 bg-blue-50 rounded-xl border border-blue-200 shadow-sm">
+            <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4 md:mb-5">Uko Bikorwa:</h2>
+            <ul class="list-disc list-inside text-gray-700 space-y-2 md:space-y-3 text-base md:text-lg">
+                <li>Wipime hagati ya <span class="font-bold text-blue-600">0 na 5</span> kuri buri gice cy’ubuzima bwawe bwo mu mwuka.</li>
+                <li class="ml-4 md:ml-5"><strong>0:</strong> Nta ntambwe, 5 = Imbaraga zihamye kandi zigaragara.</li>
+                <li class="ml-4 md:ml-5"><strong>1:</strong> Biranze kugaragara / Haracyakenewe gukura cyane.</li>
+                <li class="ml-4 md:ml-5"><strong>2:</strong> Bigaragara rimwe na rimwe / Biri gukura buhoro.</li>
+                <li class="ml-4 md:ml-5"><strong>3:</strong> Biri hagati / Hari consistency mu bice bimwe.</li>
+                <li class="ml-4 md:ml-5"><strong>4:</strong> Bigaragara kenshi / Hari imbaraga mu bice byinshi.</li>
+                <li class="ml-4 md:ml-5"><strong>5:</strong> Bihoraho kandi byuzuye / Ukomeye muri aka gace.</li>
+                <li>Ifishi izahita ibara amanota yose n’ijanisha ry’aho ugeze mu rugendo rwa roho.</li>
+                <li><span class="font-bold text-red-600">Icyitonderwa:</span> Ushobora kuzigama ibisubizo byawe ukoresheje "Print" (Ctrl+P cyangwa Cmd+P) ugahitamo "Save as PDF".</li>
+                <li class="ml-4 md:ml-5"><strong>Kanda kuri "Capa Raporo Yuzuye" kugira ngo ubone raporo yuzuye yo gucapa.</strong></li>
+            </ul>
+        </section>
+
+        <form id="evaluationForm" class="space-y-8 md:space-y-10">
+            <!-- Page 0: Unity in Faith & Fellowship -->
+            <div id="page-0" class="form-page active bg-gray-50 p-6 md:p-8 rounded-xl shadow-md border border-gray-200">
+                <h3 class="text-xl md:text-2xl font-bold category-header">1. Ubumwe mu Kwizera</h3>
+                <p class="text-base md:text-lg text-gray-600 mb-4 md:mb-6">Uko ngira uruhare mu bumwe n'abandi bizera n'uko mbwifitemo:</p>
+                <div class="space-y-6 md:space-y-7">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <label for="score1_1" class="block flex-grow mr-4 sm:mr-6 text-base sm:text-lg question-label">1.1 Guteza imbere amahoro n’ubwumvikane mu itsinda ry’abizera.</label>
+                        <input type="number" id="score1_1" name="score1_1" min="0" max="5" class="p-2 sm:p-3.5 border border-gray-300 text-center text-lg sm:text-xl focus:outline-none">
+                    </div>
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <label for="score1_2" class="block flex-grow mr-4 sm:mr-6 text-base sm:text-lg question-label">1.2 Kwakira abifite impano zitandukanye no kububaha.</label>
+                        <input type="number" id="score1_2" name="score1_2" min="0" max="5" class="p-2 sm:p-3.5 border border-gray-300 text-center text-lg sm:text-xl focus:outline-none">
+                    </div>
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <label for="score1_3" class="block flex-grow mr-4 sm:mr-6 text-base sm:text-lg question-label">1.3 Gushyira hamwe n’abandi mu ntego z’Imana.</label>
+                        <input type="number" id="score1_3" name="score1_3" min="0" max="5" class="p-2 sm:p-3.5 border border-gray-300 text-center text-lg sm:text-xl focus:outline-none">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 1: Knowledge of the Son of God -->
+            <div id="page-1" class="form-page bg-gray-50 p-6 md:p-8 rounded-xl shadow-md border border-gray-200">
+                <h3 class="text-xl sm:text-2xl font-bold category-header">2. Kumenya Umwana w’Imana</h3>
+                <p class="text-base sm:text-lg text-gray-600 mb-4 md:mb-6">Uko nzi Yesu Kristo (ubumuntu bwe, imirimo ye, inyigisho ze):</p>
+                <div class="space-y-6 sm:space-y-7">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <label for="score2_1" class="block flex-grow mr-4 sm:mr-6 text-base sm:text-lg question-label">2.1 Kwiga Ijambo ry’Imana neza no kurikurikiza.</label>
+                        <input type="number" id="score2_1" name="score2_1" min="0" max="5" class="p-2 sm:p-3.5 border border-gray-300 text-center text-lg sm:text-xl focus:outline-none">
+                    </div>
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <label for="score2_2" class="block flex-grow mr-4 sm:mr-6 text-base sm:text-lg question-label">2.2 Kugendera mu nyigisho za Kristo mu buzima bwa buri munsi.</label>
+                        <input type="number" id="score2_2" name="score2_2" min="0" max="5" class="p-2 sm:p-3.5 border border-gray-300 text-center text-lg sm:text-xl focus:outline-none">
+                    </div>
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <label for="score2_3" class="block flex-grow mr-4 sm:mr-6 text-base sm:text-lg question-label">2.3 Kugira umubano wihariye na Yesu biciye mu isengesho.</label>
+                        <input type="number" id="score2_3" name="score2_3" min="0" max="5" class="p-2 sm:p-3.5 border border-gray-300 text-center text-lg sm:text-xl focus:outline-none">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 2: Spiritual Maturity -->
+            <div id="page-2" class="form-page bg-gray-50 p-6 md:p-8 rounded-xl shadow-md border border-gray-200">
+                <h3 class="text-xl sm:text-2xl font-bold category-header">3. Gukura mu Mwuka</h3>
+                <p class="text-base sm:text-lg text-gray-600 mb-4 md:mb-6">Uko ngaragaza gukura mu mwuka (urugero: kwifata, kwihangana, urukundo, kumenya gutandukanya):</p>
+                <div class="space-y-6 sm:space-y-7">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <label for="score3_1" class="block flex-grow mr-4 sm:mr-6 text-base sm:text-lg question-label">3.1 Kugaragaza imbuto z’Umwuka (urukundo, kwihangana, …).</label>
+                        <input type="number" id="score3_1" name="score3_1" min="0" max="5" class="p-2 sm:p-3.5 border border-gray-300 text-center text-lg sm:text-xl focus:outline-none">
+                    </div>
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <label for="score3_2" class="block flex-grow mr-4 sm:mr-6 text-base sm:text-lg question-label">3.2 Kumenya gutandukanya ukuri n’ibinyoma byo mu mwuka.</label>
+                        <input type="number" id="score3_2" name="score3_2" min="0" max="5" class="p-2 sm:p-3.5 border border-gray-300 text-center text-lg sm:text-xl focus:outline-none">
+                    </div>
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <label for="score3_3" class="block flex-grow mr-4 sm:mr-6 text-base sm:text-lg question-label">3.3 Gukomera mu kwizera igihe cy’ibigeragezo.</label>
+                        <input type="number" id="score3_3" name="score3_3" min="0" max="5" class="p-2 sm:p-3.5 border border-gray-300 text-center text-lg sm:text-xl focus:outline-none">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 3: Reflecting Christ's Fullness -->
+            <div id="page-3" class="form-page bg-gray-50 p-6 md:p-8 rounded-xl shadow-md border border-gray-200">
+                <h3 class="text-xl sm:text-2xl font-bold category-header">4. Kugera ku Buzure bwa Kristo</h3>
+                <p class="text-base sm:text-lg text-gray-600 mb-4 md:mb-6">Uko ibikorwa byanjye n'imyifatire yanjye bigaragaza imico ya Yesu n'uko biteza imbere ubwami bwe:</p>
+                <div class="space-y-6 sm:space-y-7">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <label for="score4_1" class="block flex-grow mr-4 sm:mr-6 text-base sm:text-lg question-label">4.1 Kugaragaza imico ya Yesu mu bikorwa bya buri munsi.</label>
+                        <input type="number" id="score4_1" name="score4_1" min="0" max="5" class="p-2 sm:p-3.5 border border-gray-300 text-center text-lg sm:text-xl focus:outline-none">
+                    </div>
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <label for="score4_2" class="block flex-grow mr-4 sm:mr-6 text-base sm:text-lg question-label">4.2 Gukoresha impano mu gukorera abandi.</label>
+                        <input type="number" id="score4_2" name="score4_2" min="0" max="5" class="p-2 sm:p-3.5 border border-gray-300 text-center text-lg sm:text-xl focus:outline-none">
+                    </div>
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <label for="score4_3" class="block flex-grow mr-4 sm:mr-6 text-base sm:text-lg question-label">4.3 Kwirwanaho ku bw’Ubwami bw’Imana no kubwiriza.</label>
+                        <input type="number" id="score4_3" name="score4_3" min="0" max="5" class="p-2 sm:p-3.5 border border-gray-300 text-center text-lg sm:text-xl focus:outline-none">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 4: Results -->
+            <div id="page-4" class="form-page mt-8 md:mt-10 p-6 md:p-8 rounded-2xl text-center
+                                    bg-gradient-to-br from-emerald-200 via-teal-200 to-cyan-200
+                                    shadow-xl border border-emerald-300 transform transition-all duration-500 hover:scale-[1.01]">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-emerald-800 mb-4 md:mb-5 drop-shadow-sm">Ijanisha ryawe ry’Iterambere rya Gikristo</h2>
+                <div class="space-y-4 md:space-y-5">
+                    <p class="text-xl md:text-2xl text-emerald-900">
+                        Amanota Yose: <span id="totalScore" class="font-extrabold text-4xl md:text-5xl text-teal-700 drop-shadow-md">0</span> / 60
+                    </p>
+                    <p class="text-xl md:text-2xl text-emerald-900">
+                        Ijanisha ryo Kugerageza Kugera ku Buzure bwa Kristo: <span id="percentage" class="font-extrabold text-4xl md:text-5xl text-teal-700 drop-shadow-md">0.00%</span>
+                    </p>
+                    <p class="text-sm md:text-base mt-4 md:mt-6 italic text-emerald-700">
+                        Ibi ni igikoresho cyo kwitekerezaho. Gukura mu Mwuka ni urugendo rudahagarara!
+                    </p>
+                </div>
+            </div>
+        </form>
+
+        <!-- Navigation Buttons -->
+        <div class="navigation-buttons">
+            <button id="prevBtn"
+                class="px-6 py-3 rounded-xl bg-blue-500 text-white font-semibold text-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 ease-in-out">
+                Subira inyuma
+            </button>
+            <button id="nextBtn"
+                class="px-6 py-3 rounded-xl bg-green-500 text-white font-semibold text-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300 transition-all duration-200 ease-in-out">
+                Komeza <span id="pageCounter">(1/5)</span>
+            </button>
+            <button id="printFullReportBtn"
+                class="px-6 py-3 rounded-xl bg-purple-500 text-white font-semibold text-lg shadow-md hover:bg-purple-600 focus:outline-none focus:ring-4 focus:ring-purple-300 transition-all duration-200 ease-in-out">
+                Capa Raporo Yuzuye
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('evaluationForm');
+            const pages = form.querySelectorAll('.form-page');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const printFullReportBtn = document.getElementById('printFullReportBtn');
+            const pageCounter = document.getElementById('pageCounter');
+            const totalScoreSpan = document.getElementById('totalScore');
+            const percentageSpan = document.getElementById('percentage');
+
+            let currentPageIndex = 0;
+            const totalCategories = 4; // Number of question categories
+            const totalPages = totalCategories + 1; // Categories + 1 for results page
+            const maxPossibleScore = 60; // 12 questions * 5 points max each
+
+            // Initialize all input values to empty strings for better user experience
+            const scoreInputs = form.querySelectorAll('input[type="number"]');
+            scoreInputs.forEach(input => {
+                input.value = '';
+            });
+
+            // Function to display the correct page
+            function showPage(index) {
+                pages.forEach((page, i) => {
+                    if (i === index) {
+                        page.classList.add('active');
+                    } else {
+                        page.classList.remove('active');
+                    }
+                });
+
+                prevBtn.disabled = index === 0;
+                if (index === totalCategories) { // If on results page
+                    nextBtn.textContent = 'Ongera Utangire'; // Changed from 'Start Over'
+                    pageCounter.style.display = 'none'; // Hide page counter on results page
+                } else {
+                    nextBtn.textContent = 'Komeza '; // Changed from 'Next '
+                    pageCounter.style.display = 'inline';
+                    pageCounter.textContent = `(${index + 1}/${totalPages})`;
+                }
+                
+                // Set text for next button for last category before results
+                if (index === totalCategories -1) {
+                    nextBtn.textContent = 'Reba Ibyavuyemo'; // Changed from 'Show Results'
+                }
+
+                updateResults(); // Update results every time page changes
+            }
+
+            // Function to calculate and display scores
+            function updateResults() {
+                let currentTotalScore = 0;
+                scoreInputs.forEach(input => {
+                    let score = parseInt(input.value);
+                    if (isNaN(score) || score < 0) {
+                        score = 0; // Treat empty or invalid input as 0 for calculation
+                    } else if (score > 5) {
+                        score = 5; // Clamp to 5 if greater than 5
+                    }
+                    currentTotalScore += score;
+                });
+
+                totalScoreSpan.textContent = currentTotalScore;
+
+                const percentage = (maxPossibleScore > 0) ? (currentTotalScore / maxPossibleScore) * 100 : 0;
+                percentageSpan.textContent = percentage.toFixed(2) + '%';
+            }
+
+            // Event listener for printing all pages
+            window.addEventListener('beforeprint', () => {
+                // When printing, remove active class from all pages to ensure @media print rule takes over
+                pages.forEach(page => {
+                    page.classList.add('active'); // Temporarily make all visible
+                });
+                document.body.classList.add('print-active'); // Add print-active class to body
+            });
+
+            window.addEventListener('afterprint', () => {
+                // After printing, revert back to normal view
+                document.body.classList.remove('print-active'); // Remove print-active class
+                // Restore only the current active page
+                pages.forEach((page, i) => {
+                    if (i !== currentPageIndex) {
+                        page.classList.remove('active');
+                    }
+                });
+            });
+
+            printFullReportBtn.addEventListener('click', () => {
+                window.print(); // Trigger the print dialog
+            });
+
+            // Navigation button event listeners
+            prevBtn.addEventListener('click', () => {
+                if (currentPageIndex > 0) {
+                    currentPageIndex--;
+                    showPage(currentPageIndex);
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentPageIndex < totalPages - 1) {
+                    currentPageIndex++;
+                    showPage(currentPageIndex);
+                } else if (currentPageIndex === totalPages - 1) { // If on results page and clicked "Start Over"
+                    currentPageIndex = 0;
+                    scoreInputs.forEach(input => { // Reset all scores
+                        input.value = '';
+                    });
+                    updateResults(); // Recalculate after reset
+                    showPage(currentPageIndex);
+                }
+            });
+
+            // Add event listeners to all number inputs to recalculate on change
+            scoreInputs.forEach(input => {
+                input.addEventListener('input', updateResults);
+                input.addEventListener('change', updateResults);
+            });
+
+            // Initial display
+            showPage(currentPageIndex);
+        });
+    </script>
+</body>
+</html>
