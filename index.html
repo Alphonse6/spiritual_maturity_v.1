@@ -152,154 +152,222 @@
                 font-size: 3rem; /* text-5xl */
             }
         }
+
+        /* Multi-page styling */
+        .form-page {
+            display: none; /* Hide all pages by default */
+        }
+        .form-page.active {
+            display: block; /* Show active page */
+        }
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding: 0 1.5rem;
+        }
+        .navigation-buttons button {
+            transition: all 0.2s ease-in-out;
+        }
     </style>
 </head>
 <body>
     <div class="container-wrapper">
-        <header class="text-center mb-8 sm:mb-10">
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-cyan-800 leading-tight mb-2 sm:mb-4">
+        <header class="text-center mb-8 md:mb-10">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-cyan-800 leading-tight mb-2 md:mb-4">
                 Ephesians 4:13 Discipleship Self-Assessment
             </h1>
-            <p class="text-xl sm:text-2xl text-cyan-600 font-semibold mb-4 sm:mb-6">
+            <p class="text-xl md:text-2xl text-cyan-600 font-semibold mb-4 md:mb-6">
                 Journeying Towards the Fullness of Christ
             </p>
-            <blockquote class="text-base sm:text-lg text-gray-700 italic mx-auto max-w-xl md:max-w-2xl">
+            <blockquote class="text-base md:text-lg text-gray-700 italic mx-auto max-w-xl md:max-w-2xl">
                 "until we all reach unity in the faith and in the knowledge of the Son of God and become mature, attaining to the whole measure of the fullness of Christ."
-                <footer class="mt-2 text-sm sm:text-base font-bold text-gray-600">- Ephesians 4:13 (NIV)</footer>
+                <footer class="mt-2 text-sm md:text-base font-bold text-gray-600">- Ephesians 4:13 (NIV)</footer>
             </blockquote>
         </header>
 
-        <section class="mb-10 sm:mb-12 p-6 sm:p-8 bg-blue-50 rounded-xl border border-blue-200 shadow-sm">
-            <h2 class="text-2xl sm:text-3xl font-bold text-blue-700 mb-4 sm:mb-5">Instructions:</h2>
-            <ul class="list-disc list-inside text-gray-700 space-y-2 sm:space-y-3 text-base sm:text-lg">
+        <section class="mb-8 md:mb-10 p-6 md:p-8 bg-blue-50 rounded-xl border border-blue-200 shadow-sm">
+            <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4 md:mb-5">Instructions:</h2>
+            <ul class="list-disc list-inside text-gray-700 space-y-2 md:space-y-3 text-base md:text-lg">
                 <li>Rate yourself on a scale of <span class="font-bold text-blue-600">0 to 5</span> for each statement.</li>
-                <li class="ml-4 sm:ml-5"><strong>0:</strong> Not evident at all / No progress in this area.</li>
-                <li class="ml-4 sm:ml-5"><strong>1:</strong> Rarely evident / Significant growth needed.</li>
-                <li class="ml-4 sm:ml-5"><strong>2:</strong> Sometimes evident / Developing.</li>
-                <li class="ml-4 sm:ml-5"><strong>3:</strong> Moderately evident / Consistent in some areas.</li>
-                <li class="ml-4 sm:ml-5"><strong>4:</strong> Often evident / Strong in most areas.</li>
-                <li class="ml-4 sm:ml-5"><strong>5:</strong> Consistently evident / Fully mature in this area.</li>
+                <li class="ml-4 md:ml-5"><strong>0:</strong> Not evident at all / No progress in this area.</li>
+                <li class="ml-4 md:ml-5"><strong>1:</strong> Rarely evident / Significant growth needed.</li>
+                <li class="ml-4 md:ml-5"><strong>2:</strong> Sometimes evident / Developing.</li>
+                <li class="ml-4 md:ml-5"><strong>3:</strong> Moderately evident / Consistent in some areas.</li>
+                <li class="ml-4 md:ml-5"><strong>4:</strong> Often evident / Strong in most areas.</li>
+                <li class="ml-4 md:ml-5"><strong>5:</strong> Consistently evident / Fully mature in this area.</li>
                 <li>The form will automatically calculate your total score and a percentage representing your progress.</li>
                 <li><span class="font-bold text-red-600">Note:</span> This is a web application. To save a copy with your results, use your browser's "Print" function (Ctrl+P or Cmd+P) and select "Save as PDF".</li>
             </ul>
         </section>
 
-        <form id="evaluationForm" class="space-y-8 sm:space-y-10">
-            <!-- Category 1: Unity in Faith & Fellowship -->
-            <div class="bg-gray-50 p-6 sm:p-8 rounded-xl shadow-md border border-gray-200">
-                <h3 class="text-xl sm:text-2xl font-bold category-header">1. Unity in Faith & Fellowship</h3>
-                <p class="text-base sm:text-lg text-gray-600 mb-4 sm:mb-6">My contribution to and experience of unity within the body of Christ:</p>
-                <div class="space-y-6 sm:space-y-7">
-                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between">
+        <form id="evaluationForm" class="space-y-8 md:space-y-10">
+            <!-- Page 0: Unity in Faith & Fellowship -->
+            <div id="page-0" class="form-page active bg-gray-50 p-6 md:p-8 rounded-xl shadow-md border border-gray-200">
+                <h3 class="text-xl md:text-2xl font-bold category-header">1. Unity in Faith & Fellowship</h3>
+                <p class="text-base md:text-lg text-gray-600 mb-4 md:mb-6">My contribution to and experience of unity within the body of Christ:</p>
+                <div class="space-y-6 md:space-y-7">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                         <label for="score1_1" class="block flex-grow mr-4 sm:mr-6 text-base sm:text-lg question-label">1.1 I actively promote harmony and understanding among believers.</label>
                         <input type="number" id="score1_1" name="score1_1" min="0" max="5" class="p-2 sm:p-3.5 border border-gray-300 text-center text-lg sm:text-xl focus:outline-none">
                     </div>
-                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                         <label for="score1_2" class="block flex-grow mr-4 sm:mr-6 text-base sm:text-lg question-label">1.2 I embrace diversity in gifts and perspectives within the church.</label>
                         <input type="number" id="score1_2" name="score1_2" min="0" max="5" class="p-2 sm:p-3.5 border border-gray-300 text-center text-lg sm:text-xl focus:outline-none">
                     </div>
-                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                         <label for="score1_3" class="block flex-grow mr-4 sm:mr-6 text-base sm:text-lg question-label">1.3 I am willing to collaborate with others for common spiritual goals.</label>
                         <input type="number" id="score1_3" name="score1_3" min="0" max="5" class="p-2 sm:p-3.5 border border-gray-300 text-center text-lg sm:text-xl focus:outline-none">
                     </div>
                 </div>
             </div>
 
-            <!-- Category 2: Knowledge of the Son of God -->
-            <div class="bg-gray-50 p-6 sm:p-8 rounded-xl shadow-md border border-gray-200">
+            <!-- Page 1: Knowledge of the Son of God -->
+            <div id="page-1" class="form-page bg-gray-50 p-6 md:p-8 rounded-xl shadow-md border border-gray-200">
                 <h3 class="text-xl sm:text-2xl font-bold category-header">2. Knowledge of the Son of God</h3>
                 <p class="text-base sm:text-lg text-gray-600 mb-4 sm:mb-6">My pursuit and application of the knowledge of Jesus Christ:</p>
                 <div class="space-y-6 sm:space-y-7">
-                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                         <label for="score2_1" class="block flex-grow mr-4 sm:mr-6 text-base sm:text-lg question-label">2.1 I consistently study God's Word to deepen my understanding of Christ.</label>
                         <input type="number" id="score2_1" name="score2_1" min="0" max="5" class="p-2 sm:p-3.5 border border-gray-300 text-center text-lg sm:text-xl focus:outline-none">
                     </div>
-                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                         <label for="score2_2" class="block flex-grow mr-4 sm:mr-6 text-base sm:text-lg question-label">2.2 I actively apply biblical teachings to my daily life and decisions.</label>
                         <input type="number" id="score2_2" name="score2_2" min="0" max="5" class="p-2 sm:p-3.5 border border-gray-300 text-center text-lg sm:text-xl focus:outline-none">
                     </div>
-                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                         <label for="score2_3" class="block flex-grow mr-4 sm:mr-6 text-base sm:text-lg question-label">2.3 I maintain a consistent and growing personal relationship with Christ.</label>
                         <input type="number" id="score2_3" name="score2_3" min="0" max="5" class="p-2 sm:p-3.5 border border-gray-300 text-center text-lg sm:text-xl focus:outline-none">
                     </div>
                 </div>
             </div>
 
-            <!-- Category 3: Spiritual Maturity -->
-            <div class="bg-gray-50 p-6 sm:p-8 rounded-xl shadow-md border border-gray-200">
+            <!-- Page 2: Spiritual Maturity -->
+            <div id="page-2" class="form-page bg-gray-50 p-6 md:p-8 rounded-xl shadow-md border border-gray-200">
                 <h3 class="text-xl sm:text-2xl font-bold category-header">3. Spiritual Maturity</h3>
                 <p class="text-base sm:text-lg text-gray-600 mb-4 sm:mb-6">My exhibition of spiritual maturity through character and discernment:</p>
                 <div class="space-y-6 sm:space-y-7">
-                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                         <label for="score3_1" class="block flex-grow mr-4 sm:mr-6 text-base sm:text-lg question-label">3.1 I consistently demonstrate the Fruit of the Spirit (love, joy, peace, patience, etc.).</label>
                         <input type="number" id="score3_1" name="score3_1" min="0" max="5" class="p-2 sm:p-3.5 border border-gray-300 text-center text-lg sm:text-xl focus:outline-none">
                     </div>
-                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                         <label for="score3_2" class="block flex-grow mr-4 sm:mr-6 text-base sm:text-lg question-label">3.2 I exercise discernment to distinguish truth from error and make wise choices.</label>
                         <input type="number" id="score3_2" name="score3_2" min="0" max="5" class="p-2 sm:p-3.5 border border-gray-300 text-center text-lg sm:text-xl focus:outline-none">
                     </div>
-                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                         <label for="score3_3" class="block flex-grow mr-4 sm:mr-6 text-base sm:text-lg question-label">3.3 I show steadfastness and trust in God during challenges and difficulties.</label>
                         <input type="number" id="score3_3" name="score3_3" min="0" max="5" class="p-2 sm:p-3.5 border border-gray-300 text-center text-lg sm:text-xl focus:outline-none">
                     </div>
                 </div>
             </div>
 
-            <!-- Category 4: Reflecting Christ's Fullness -->
-            <div class="bg-gray-50 p-6 sm:p-8 rounded-xl shadow-md border border-gray-200">
+            <!-- Page 3: Reflecting Christ's Fullness -->
+            <div id="page-3" class="form-page bg-gray-50 p-6 md:p-8 rounded-xl shadow-md border border-gray-200">
                 <h3 class="text-xl sm:text-2xl font-bold category-header">4. Reflecting Christ's Fullness</h3>
                 <p class="text-base sm:text-lg text-gray-600 mb-4 sm:mb-6">My actions and attitudes reflecting Christ's character and advancing His kingdom:</p>
                 <div class="space-y-6 sm:space-y-7">
-                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                         <label for="score4_1" class="block flex-grow mr-4 sm:mr-6 text-base sm:text-lg question-label">4.1 My daily life consistently reflects the character and virtues of Jesus.</label>
                         <input type="number" id="score4_1" name="score4_1" min="0" max="5" class="p-2 sm:p-3.5 border border-gray-300 text-center text-lg sm:text-xl focus:outline-none">
                     </div>
-                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                         <label for="score4_2" class="block flex-grow mr-4 sm:mr-6 text-base sm:text-lg question-label">4.2 I use my gifts, time, and resources to serve the needs of others.</label>
                         <input type="number" id="score4_2" name="score4_2" min="0" max="5" class="p-2 sm:p-3.5 border border-gray-300 text-center text-lg sm:text-xl focus:outline-none">
                     </div>
-                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                         <label for="score4_3" class="block flex-grow mr-4 sm:mr-6 text-base sm:text-lg question-label">4.3 I actively participate in advancing God's kingdom and sharing the Gospel.</label>
                         <input type="number" id="score4_3" name="score4_3" min="0" max="5" class="p-2 sm:p-3.5 border border-gray-300 text-center text-lg sm:text-xl focus:outline-none">
                     </div>
                 </div>
             </div>
+
+            <!-- Page 4: Results -->
+            <div id="page-4" class="form-page mt-8 md:mt-10 p-6 md:p-8 rounded-2xl text-center
+                                    bg-gradient-to-br from-emerald-200 via-teal-200 to-cyan-200
+                                    shadow-xl border border-emerald-300 transform transition-all duration-500 hover:scale-[1.01]">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-emerald-800 mb-4 md:mb-5 drop-shadow-sm">Your Spiritual Progress Snapshot</h2>
+                <div class="space-y-4 md:space-y-5">
+                    <p class="text-xl md:text-2xl text-emerald-900">
+                        Total Score: <span id="totalScore" class="font-extrabold text-4xl md:text-5xl text-teal-700 drop-shadow-md">0</span> / 60
+                    </p>
+                    <p class="text-xl md:text-2xl text-emerald-900">
+                        Progress towards fullness: <span id="percentage" class="font-extrabold text-4xl md:text-5xl text-teal-700 drop-shadow-md">0.00%</span>
+                    </p>
+                    <p class="text-sm md:text-base mt-4 md:mt-6 italic text-emerald-700">
+                        This self-assessment is a tool for reflection, not a definitive judgment. Spiritual growth is a continuous journey!
+                    </p>
+                </div>
+            </div>
         </form>
 
-        <!-- Results Section -->
-        <div class="mt-10 sm:mt-12 p-6 sm:p-8 result-section text-center">
-            <h2 class="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">Your Spiritual Progress Snapshot</h2>
-            <div class="space-y-4 sm:space-y-5">
-                <p class="text-lg sm:text-xl">
-                    Total Score: <span id="totalScore" class="font-extrabold text-3xl sm:text-4xl">0</span> / 60
-                </p>
-                <p class="text-lg sm:text-xl">
-                    Percentage Towards the Fullness of Christ: <span id="percentage" class="font-extrabold text-4xl sm:text-5xl">0.00%</span>
-                </p>
-                <p class="text-sm sm:text-base mt-4 sm:mt-6 italic">
-                    This self-assessment is a tool for reflection, not a definitive judgment. Spiritual growth is a continuous journey!
-                </p>
-            </div>
+        <!-- Navigation Buttons -->
+        <div class="navigation-buttons">
+            <button id="prevBtn"
+                class="px-6 py-3 rounded-xl bg-blue-500 text-white font-semibold text-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 ease-in-out">
+                Previous
+            </button>
+            <button id="nextBtn"
+                class="px-6 py-3 rounded-xl bg-green-500 text-white font-semibold text-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300 transition-all duration-200 ease-in-out">
+                Next <span id="pageCounter">(1/5)</span>
+            </button>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('evaluationForm');
+            const pages = form.querySelectorAll('.form-page');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const pageCounter = document.getElementById('pageCounter');
             const totalScoreSpan = document.getElementById('totalScore');
             const percentageSpan = document.getElementById('percentage');
+
+            let currentPageIndex = 0;
+            const totalCategories = 4; // Number of question categories
+            const totalPages = totalCategories + 1; // Categories + 1 for results page
             const maxPossibleScore = 60; // 12 questions * 5 points max each
+
+            // Initialize all input values to empty strings for better user experience
+            const scoreInputs = form.querySelectorAll('input[type="number"]');
+            scoreInputs.forEach(input => {
+                input.value = '';
+            });
+
+            function showPage(index) {
+                pages.forEach((page, i) => {
+                    if (i === index) {
+                        page.classList.add('active');
+                    } else {
+                        page.classList.remove('active');
+                    }
+                });
+
+                prevBtn.disabled = index === 0;
+                if (index === totalCategories) { // If on results page
+                    nextBtn.textContent = 'Start Over';
+                    pageCounter.style.display = 'none'; // Hide page counter on results page
+                } else {
+                    nextBtn.textContent = 'Next ';
+                    pageCounter.style.display = 'inline';
+                    pageCounter.textContent = `(${index + 1}/${totalPages})`;
+                }
+                
+                // Set text for next button for last category before results
+                if (index === totalCategories -1) {
+                    nextBtn.textContent = 'Show Results';
+                }
+
+                updateResults(); // Update results every time page changes
+            }
 
             function updateResults() {
                 let currentTotalScore = 0;
-                const scoreInputs = form.querySelectorAll('input[type="number"]');
-
                 scoreInputs.forEach(input => {
                     let score = parseInt(input.value);
-                    if (isNaN(score)) {
-                        score = 0; // Treat empty or non-numeric input as 0 for calculation
-                    } else if (score < 0) {
-                        score = 0; // Clamp to 0 if negative
+                    if (isNaN(score) || score < 0) {
+                        score = 0; // Treat empty or invalid input as 0 for calculation
                     } else if (score > 5) {
                         score = 5; // Clamp to 5 if greater than 5
                     }
@@ -312,12 +380,35 @@
                 percentageSpan.textContent = percentage.toFixed(2) + '%';
             }
 
-            form.querySelectorAll('input[type="number"]').forEach(input => {
+            prevBtn.addEventListener('click', () => {
+                if (currentPageIndex > 0) {
+                    currentPageIndex--;
+                    showPage(currentPageIndex);
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentPageIndex < totalPages - 1) {
+                    currentPageIndex++;
+                    showPage(currentPageIndex);
+                } else if (currentPageIndex === totalPages - 1) { // If on results page and clicked "Start Over"
+                    currentPageIndex = 0;
+                    scoreInputs.forEach(input => { // Reset all scores
+                        input.value = '';
+                    });
+                    updateResults(); // Recalculate after reset
+                    showPage(currentPageIndex);
+                }
+            });
+
+            // Add event listeners to all number inputs to recalculate on change
+            scoreInputs.forEach(input => {
                 input.addEventListener('input', updateResults);
                 input.addEventListener('change', updateResults);
             });
 
-            updateResults(); // Initial calculation when page loads
+            // Initial display
+            showPage(currentPageIndex);
         });
     </script>
 </body>
